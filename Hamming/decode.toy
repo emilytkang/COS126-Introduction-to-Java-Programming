@@ -1,0 +1,92 @@
+program Decode
+/******************************************************************************
+ *  Description:
+ *  Input:
+ *  Output:
+
+
+ ******************************************************************************/
+//Initialization
+
+10: 81FF   read R[1]
+11: D114   if (R[1] > 0) goto 14
+12: C114   if (R[1] == 0) goto 14
+13: 0000   halt
+14: 82Ff   read R[2]
+15: 83FF   read R[3]
+16: 84FF   read R[4]
+17: 85FF   read R[5]
+18: 86FF   read R[6]
+19: 87FF   read R[7]
+
+1A: 4812   R[8] <- R[1] ^ R[2]
+1B: 4884   R[8] <- R[8] ^ R[4]
+1C: 4958   R[9] <- R[5] ^ R[8]           R[9] is 1 if test fails
+
+1D: 4813   R[8] <- R[1] ^ R[3]
+1E: 4884   R[8] <- R[8] ^ R[4]
+1F: 4A68   R[A] <- R[6] ^ R[8]           R[A] evaluates to 1 if test fails
+
+20: 4823   R[8] <- R[2] ^ R[3]
+21: 4884   R[8] <- R[8] ^ R[4]
+22: 4B78   R[B] <- R[7] ^ R[8]           R[B] evalutes to 1 if test fails
+
+23: 4C9A   R[C] <- R[9] ^ R[A]
+24: CC2B   if (R[C] == 0) goto 2B        if c1 and c2 are the same, go to 2B
+25: 4D9B   R[D] <- R[9] ^ R[B]
+26: CD29   if (R[D] == 0) goto 29        if c1 and c3 are the same, go to 29
+27: 4EAB   R[E] <- R[A] ^ R[B]
+28: CE2D   if (R[E] == 0) goto 2D        if c2 and c3 are the same, go to 2D
+
+29: C931   if (R[9] == 0) goto 31        {T,F,T} (all 4 messages correct)
+2A: D93D   if (R[9] > 0) goto 3D         {F,T,F} (m2 is incorrect)
+
+2B: CA31   if (R[A] == 0) goto 31        {T,T,T/F} (all 4 messages correct)
+2C: DA2F   if (R[A] > 0) goto 2F         {F,F,T/F} (either m4 or m1 incorrect)
+
+2D: CA31   if (R[A] == 0) goto 31        {F,T,T} (all 4 messages correct)
+2E: DA44   if (R[A] > 0) goto 44         {T,F,F} m3 incorrect
+
+2F: CB36   if (R[B] == 0) goto 36        {F,F,T} m1 incorrect
+30: DB4B   if (R[B] > 0) goto 4B         {F,F,F} m4 incorrect
+
+31: 91FF   write R[1]
+32: 92FF   write R[2]
+33: 93FF   write R[3]
+34: 94FF   write R[4]
+35: C010   goto 10
+
+36: 4FAB   R[F] <- R[A] ^ R[B]            change m1
+37: 41F1   R[1] <- R[F] ^ R[1]
+38: 91FF   write R[1]
+39: 92FF   write R[2]
+3A: 93FF   write R[3]
+3B: 94FF   write R[4]
+3C: C010   goto 10
+
+3D: 4FA9   R[F] <- R[A] ^ R[9]           change m2
+3E: 42F2   R[2] <- R[F] ^ R[2]
+3F: 91FF   write R[1]
+40: 92FF   write R[2]
+41: 93FF   write R[3]
+42: 94FF   write R[4]
+43: C010   goto 10
+
+44: 4FA9   R[F] <- R[A] ^ R[9]           change m3
+45: 43F3   R[3] <- R[F] ^ R[3]
+46: 91FF   write R[1]
+47: 92FF   write R[2]
+48: 93FF   write R[3]
+49: 94FF   write R[4]
+4A: C010   goto 10
+
+4B: 4F90   R[F] <- R[9]                  change m4
+4C: 44F4   R[4] <- R[F] ^ R[4]
+4D: 91FF   write R[1]
+4E: 92FF   write R[2]
+4F: 93FF   write R[3]
+50: 94FF   write R[4]
+51: C010   goto 10
+
+
+
