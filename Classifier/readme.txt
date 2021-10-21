@@ -1,0 +1,66 @@
+Programming Assignment: Image Classifier
+
+
+/**********************************************************************
+ * Approximate number of hours to complete this assignment            *
+ **********************************************************************/
+
+Number of hours: 2
+
+/**********************************************************************
+ * Some people (especially in Europe and Latin America) write a 7     *
+ * with a line through the middle, while others (especially in Japan  *
+ * and Korea) make the top line crooked.                              *
+ *                                                                    *
+ * Suppose that the training data consists solely of samples that do  *
+ * not use any of these conventions. How well do you think the        *
+ * algorithm will perform when you test it on different populations?  *
+ * What are the possible consequences?                                *
+ **********************************************************************/
+
+ANSWER: The algorithm will not have been trained to recognize 7s that have a
+line through the middle or a crooked top line. When people write 7s in this
+way, the algorithm will fail at correctly classifying the image. Depending
+on what the algorithm is used for, the consequences could be dire. For
+example, if people were depositing checks and the machine misclassifies
+the number, this could lead to a disastrous monetary loss. Even worse, the
+machine would discriminate against people of other cultures.
+
+/**********************************************************************
+ * Now suppose that you are using a supervised learning algorithm to  *
+ * diagnose cancer. Suppose the training data consists of examples    *
+ * solely on individuals from population X but you use it on          *
+ * individuals from population Y. What are the possible consequences? *
+ **********************************************************************/
+
+ANSWER: The algorithm, not having been trained with samples from population
+Y, could have a very high error rate when testing that population. This could
+lead to misdiagnoses, or failure to diagnose, which of course has disastrous
+medical consequences.
+
+
+
+/**********************************************************************
+ *  Did you receive help from classmates, past students, or
+ *  anyone else? If so, please list their names.  ("A Sunday lab TA"
+ *  or "Office hours on Thursday" is ok if you don't know their name.)
+ **********************************************************************/
+
+Yes or no? No
+
+
+
+
+/**********************************************************************
+ *  Did you encounter any serious problems? If so, please describe.
+ **********************************************************************/
+
+Yes or no? No
+
+
+
+
+/**********************************************************************
+ *  List any other comments here.
+ **********************************************************************/
+
